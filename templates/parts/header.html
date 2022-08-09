@@ -1,0 +1,38 @@
+{% load navigation_tags svg %}
+
+ <header class="{{ class }} z-50">
+	<button id="botonMenu" title="Menu" type="button" class="z-50 md:hidden fixed top-4 right-4">
+		<div class="space-y-2 rounded-full bg-gray-800 p-4">
+			<span class="block w-6 h-0.5 bg-white"></span>
+			<span class="block w-6 h-0.5 bg-white"></span>
+			<span class="block w-4 h-0.5 bg-white"></span>
+		</div>
+	  </button>
+	<nav id="menu" class="bg-gray-800 md:bg-transparent flex w-60 h-full justify-between mx-auto fixed top-0 right-0 z-10 duration-500 transform translate-x-full md:translate-x-0 md:relative md:w-full md:h-20 md:justify-center md:space-x-8">
+		<ul class="space-x-3 space-y-10 md:space-y-0 flex flex-col md:flex-row items-center mx-auto mt-32 md:mt-0">
+			{% if settings.base.Logo.stamp_logo %}
+			<li class="md:hidden">
+				<a href="/" aria-label="Back to homepage" class=" ">
+					<div class="w-20 h-20">
+				{% svg settings.base.Logo.stamp_logo.filename|cut:".svg" %}
+					</div>
+				</a>
+			</li>
+			{% else %}
+				{% if settings.base.Logo.logo %}
+				<li class="md:hidden">
+                    <a href="/" aria-label="Back to homepage" class=" ">
+                        <div class="w-20 h-20">
+					{% svg settings.base.Logo.logo.filename|cut:".svg" %}
+						</div>
+					</a>
+				</li>
+				{% endif %}
+			{% endif %}
+		
+            {# main_menu is defined in base/templatetags/navigation_tags.py #}
+            {% get_site_root as site_root %}
+            {% top_menu parent=site_root calling_page=self %}
+		</ul>	
+	</nav>
+</header> 
