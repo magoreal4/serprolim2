@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags static %}
+
+{% block body_class %}
+dark:bg-secondary dark:text-gray-200
+{% endblock body_class %}
+
+{% block header %}
+{% include "parts/header.html" with class="bg-gray-800 sticky top-0" %}
+{% endblock header %}
+
+
+{% block content %}
+
+<section class="dark:text-gray-100">
+	<div class="md:container max-w-xl py-12 mx-auto lg:px-8 lg:max-w-7xl">
+		<h1 class="text-center sm:text-5xl text-primary">
+		{% if self.subtitle %}
+			{{ self.subtitle|upper }}
+		{% else %}
+			{{ self.title|upper }}
+		{% endif %}
+		</h1>
+		<h2 class="font-sans text-2xl max-w-5xl mx-auto mt-4 text-center dark:text-gray-100">
+			{{ self.introduction }}
+		</h2>		
+	</div>
+	<div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
+	{% if posts %}
+		{% for post in posts %}
+			{% if forloop.counter == 1 %}
+			<a href="{% pageurl post %}" class="border-2 rounded-lg block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-800">
+				{% image post.image fill-480x360 format-webp-lossless loading="lazy" class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500" %}
+				{% comment %} <img src="https://source.unsplash.com/random/480x360" alt="" class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500"> {% endcomment %}
+				<div class="p-6 space-y-3 lg:col-span-5 ">
+					<h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{post.subtitle}}</h3>
+					<span class="text-sm dark:text-gray-400 mb-10">{{post.date_published}}</span>
+					<p>{{post.introduction}}</p>
+				</div>
+			</a>
+			<div class="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">		
+			{% else %}
+			<a href="{% pageurl post %}" class="border-2 rounded-lg max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-800">
+				{% image post.image fill-200x200 format-webp-lossless loading="lazy" class="object-cover w-full h-52 dark:bg-gray-500" %}
+				<div class="flex flex-col p-6 ">
+					<h3 class="text-2xl font-semibold group-hover:underline group-focus:underline">{{post.date_published}}</h3>
+					<span class="text-sm dark:text-gray-400">{{post.date_published}}</span>
+					<p class="mt-5">{{post.introduction}}</p>
+				</div>
+			</a>		
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+
+
+			
+
+			
+		</div>
+		{% comment %} <div class="flex justify-center">
+			<button type="button" class="px-6 py-3 text-sm rounded-md hover:underline dark:bg-gray-900 dark:text-gray-400">Load more posts...</button>
+		</div> {% endcomment %}
+	</div>
+</section>
+
+
+{% comment %} <section id="list_serv" class="dark:text-gray-300">
+	<div class="md:container max-w-xl p-6 py-12 mx-auto space-y-24 lg:px-8 lg:max-w-7xl">
+
+		{% for item in self.n_servicios.all %}
+		<div class="grid lg:gap-8 lg:grid-cols-2 lg:items-center">
+			<div class="{% cycle '' 'lg:col-start-1' %}">					
+				<h2 class="tracking-tight dark:text-primary font-SecularOne">{{ item.title|upper }}</h2>
+				{{ item.description|richtext }}
+			</div>
+			<div aria-hidden="true" class="mt-10 lg:mt-0 {% cycle 'lg:col-start-1 lg:row-start-1' '' %}">
+				{% image item.image fill-360x480 class="mx-auto rounded-lg shadow-lg" %}
+			</div>
+		</div>
+		{% endfor %}		
+	</div>
+</section>
+ {% endcomment %}
+
+
+
+
+
+{% endblock content %}
+
+
+{% block extra_js %}
+{% endblock extra_js %}    
+
+
+

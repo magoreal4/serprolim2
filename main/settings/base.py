@@ -45,6 +45,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    "wagtailcache",
+    "wagtailseo",
+    "wagtail.contrib.settings",
+
+    "base",
+    "blog"
 ]
 
 SITE_ID = 1
@@ -74,7 +81,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(BASE_DIR, "templates"),
+            os.path.join(PROJECT_DIR, "templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {

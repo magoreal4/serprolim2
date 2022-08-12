@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% comment %} {% load wagtailimages_tags wagtailcore_tags wagtailmetadata_tags static svg%} {% endcomment %}
+{% load wagtailimages_tags wagtailcore_tags static %}
+
+{% block meta_tag %}
+  {% comment %} {% meta_tags %} {% endcomment %}
+{% endblock %}
+
+{% block body_class %}
+dark:bg-secondary dark:text-gray-200
+{% endblock body_class %}
+
+{% block header %}
+{% include "parts/header.html" with class="w-full fixed" %}
+{% endblock header %}
+
+{% block content %}
+
+PAGINA PRINCIPAL
+
+
+{% endblock content %}
+
+
+{% block extra_js %}
+<script type="text/javascript">    
+    {% comment %} var imgBanner = [];
+    var desBanner = [];
+    {% for item in self.carousel_images.all %}
+    {% image item.image width-800 format-webp as imgCarosel %}
+    imgBanner.push('{{imgCarosel.url}}');
+    desBanner.push('{{item.description}}');
+    {% endfor %}
+    var slideTime = {{ self.slideTime }};
+    var repeat = "{{ self.repeat }}";
+    repeat === "True" ? repeat = true : repeat = false;
+    var effects_text = "{{ self.effects_text }}";
+    effects_text === "True" ? effects_text = true : effects_text = false; {% endcomment %}
+
+</script>
+<script type="text/javascript" src="{% static 'js/HOME.js' %}"></script>
+
+
+{% endblock extra_js %}    
+
+
+
