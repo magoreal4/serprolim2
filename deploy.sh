@@ -16,12 +16,12 @@ server {
 
     location /static/ {
         autoindex on;
-        root $PWD/staticfiles/;
+        alias $PWD/staticfiles/;
         }
     
     location /media/ {
         autoindex on;
-        root $PWD/media/;
+        alias $PWD/media/;
         }
 
     location / {
