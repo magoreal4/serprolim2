@@ -7,38 +7,171 @@
 {% endblock %}
 
 {% block body_class %}
-dark:bg-secondary dark:text-gray-200
+xl:container mx-auto bg-gray-900 min-h-full
 {% endblock body_class %}
 
 {% block header %}
-{% include "parts/header.html" with class="w-full fixed" %}
+{% include "parts/header.html" with class="sticky top-0 shadow z-10 bg-primary flex justify-end md:justify-center items-center" %}
 {% endblock header %}
 
 {% block content %}
 
-PAGINA PRINCIPAL
+{% comment %} <div id="whatsapp" class="z-10000 fixed bottom-12 left-1 sm:left-3 lg:left-10 xl:left-20 2xl:left-40"></div> {% endcomment %}
+<main>
+    <!-- BANNER  -->
+    <section>
+      {% image self.imageBG format-webp as imgBG %}          
+      <div style="background-image: url('{{ imgBG.url }}')" class="py-10 flex flex-col md:flex-row items-center justify-around bg-center bg-no-repeat bg-cover relative h-screen75 md:h-screen/2 max-h-screen">
+        {% image self.imageMain format-webp class="w-72" %}      
+          <div class="text-center">
+              <h1 class="w-72 py-4 "> {{ self.subtitle }} </h1>
+              <hr>
+              <h2 class="w-72 py-4 text-gray-200 font-thin"> {{ self.slogan }} </h2>
+          </div>
+      </div>
+  </section>
 
+  <!-- COTIZA  -->
+  <section id="cotiza" class="bg-gray-200">
+    <div class="text-center">
+      <h2 class="pt-16 pb-3 md:pt-5 px-1 uppercase">Cotiza</h2>
+        <div class="px-1 pb-5 mx-auto md:w-4/5 max-w-4xl">
+          <h3>{{ self.cotizaDescription }}</h3>
+        </div>
+      <div id="map" class="mr-6 md:mx-10 h-screen75 z-0" >
+      </div>
+    </div>
+
+    <div class="hidden main-modal fixed w-full h-100 inset-0 z-10000 overflow-hidden justify-center items-center animated fadeIn faster"
+      style="background: rgba(0,0,0,.7);">
+      <div class="border border-teal-500 lg:shadow modal-container bg-white w-11/12 md:max-w-md mx-auto rounded z-10000 overflow-y-auto">
+        <div class="modal-content py-4 text-left px-6">
+          <!--Title-->
+          <div class="flex justify-between items-center pb-3">
+            <p id="precio" class="pr-3 text-2xl font-bold"></p>
+            <div class="modal-close cursor-pointer z-50">
+              <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                viewBox="0 0 18 18">
+                <path
+                  d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <!--Body-->
+          <div class="my-5">
+            <h3 id="precioContent"></h3>
+          </div>
+          <!--Footer-->
+          <div class="flex justify-end pt-2 text-lg">
+            <button class="modal-close bg-white hover:bg-gray-100 text-gray-500 py-2 px-4 border border-gray-400 rounded-lg shadow">Cancelar</button>
+            <button id="confirmar" class="focus:outline-none px-4 bg-green-600 p-3 ml-3 rounded-lg text-white hover:bg-green-700"></button>	
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTROS SERVICIOS  -->
+  <section id="clientes" class="bg-gray-200">
+    <div class="text-center">
+      <h2 class="pt-16 pb-3 md:pt-5 px-1 uppercase">NUESTROS SERVICIOS</h2>
+      <div class="px-1 pb-5 mx-auto md:w-4/5 max-w-4xl">
+        <h3>{{ self.serviviosDescription }}</h3>
+      </div>
+    </div>
+    <div class="mx-5 lg:mx-20 md:masonry-2-col lg:masonry-3-col md:mx-auto pb-5">
+      {% if self.displayNServicios %}
+        {% for cli in self.nuestros_servicios.all %}      
+          {% if cli.image %}
+            <div class="break-inside my-10 md:my-0 mx-2 md:mx-5 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl duration-500 transform transition">
+              {% image cli.image width-300 format-webp as img %}
+                <img class="object-contain w-full" src="{{ img.url }}" alt="{{ img.alt }}">
+
+          {% else %}
+            <div class="break-inside mx-10 my-5 bg-primary rounded-xl overflow-hidden shadow-lg hover:shadow-xl duration-500 transform transition">
+
+          {% endif %}
+              <div class="p-5 text-center">
+                <h2 class="text-xl">{{ cli.titulo }}</h2>
+                <p class="mt-1 text-gray-500 font-">{{ cli.resumen }}</p>
+              </div>
+            </div>
+          {% endfor %} 
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- PREGUNTAS FRECUENTES  -->
+  <section id="preguntas" class="bg-gray-800">
+    <div class="text-center">
+      <h2 class="pt-16 pb-3 md:pt-5 px-1 uppercase text-gray-200">PREGUNTAS FRECUENTES</h2>
+    </div>
+      {% for preguntas in self.preguntas_frecuentes.all %}
+      <div class="pb-1">
+          <div class="mx-auto bg-primary sm:w-10/12 lg:w-2/3 xl:w-1/2 border border-gray-200 divide-y divide-gray-900">
+              <details>
+                  <summary class="text-base question py-3 px-4 cursor-pointer select-none w-full">{{ preguntas.pregunta}}</summary>
+                  <p class="text-sm pt-1 pb-3 px-4 bg-gray-50">{{ preguntas.respuesta}}</p>
+              </details>
+          </div>
+      </div>
+      {% endfor %}    
+    </section>
+
+</main>
 
 {% endblock content %}
 
 
 {% block extra_js %}
-<script type="text/javascript">    
-    {% comment %} var imgBanner = [];
-    var desBanner = [];
-    {% for item in self.carousel_images.all %}
-    {% image item.image width-800 format-webp as imgCarosel %}
-    imgBanner.push('{{imgCarosel.url}}');
-    desBanner.push('{{item.description}}');
-    {% endfor %}
-    var slideTime = {{ self.slideTime }};
-    var repeat = "{{ self.repeat }}";
-    repeat === "True" ? repeat = true : repeat = false;
-    var effects_text = "{{ self.effects_text }}";
-    effects_text === "True" ? effects_text = true : effects_text = false; {% endcomment %}
+<script type="text/javascript">
+  STATIC_FILES = {
+    "COTIZAR": "{% static 'js/cotiza.js' %}",
+};
+  var marker=null;
+  var mjeCotiza = "{{ self.mjeCotiza }}";
+  var mjeFueraDeRango = "{{ self.mjeFueraDeRango }}";
+  var mjeWAContratando = "{{ self.mjeWAContratando }}";
+  var mjeWAFueraDeRango = "{{ self.mjeWAFueraDeRango }}";
+  var celular = {{ settings.base.GeneralSettings.cel }};
 
 </script>
-<script type="text/javascript" src="{% static 'js/HOME.js' %}"></script>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', () => {
+    var mobileMenuButton = document.getElementById("mobileMenuButton");
+    mobileMenuButton.onclick = function() {
+        document.getElementById("sideMenuHideOnMobile").classList.toggle("-translate-y-full");
+        document.getElementById("sideMenuHideOnMobile").classList.toggle("mt-12");
+        document.getElementById("sideMenuHideOnMobile").classList.toggle("shadow");
+        document.getElementById("mobileMenuButtonClose").classList.toggle("hidden");
+        document.getElementById("mobileMenuButtonOpen").classList.toggle("hidden");
+    }
+      // Hide element when click outside nav
+    var theElementContainer = document.getElementsByTagName("nav")[0];
+    document.addEventListener('click', function(event) {
+        if (!theElementContainer.contains(event.target)) {
+            document.getElementById("sideMenuHideOnMobile").classList.add("-translate-y-full");
+            document.getElementById("sideMenuHideOnMobile").classList.remove("mt-12");
+            document.getElementById("sideMenuHideOnMobile").classList.remove("shadow");
+            document.getElementById("mobileMenuButtonOpen").classList.remove("hidden");
+            document.getElementById("mobileMenuButtonClose").classList.add("hidden");
+        }
+    });
+    var sideMenu = document.getElementById("sideMenuHideOnMobile").childNodes;
+    sideMenu.onclick = function() {    
+      document.getElementById("sideMenuHideOnMobile").classList.add("-translate-y-full");
+      document.getElementById("sideMenuHideOnMobile").classList.remove("mt-12");
+      document.getElementById("sideMenuHideOnMobile").classList.remove("shadow");
+      document.getElementById("mobileMenuButtonOpen").classList.remove("hidden");
+      document.getElementById("mobileMenuButtonClose").classList.add("hidden");
+    };
+  
+  });
+</script>
+
+<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 
 
 {% endblock extra_js %}    

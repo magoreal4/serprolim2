@@ -7,44 +7,27 @@
 
 module.exports = {
     content: [
-        /**
-         * HTML. Paths to Django template files that will contain Tailwind CSS classes.
-         */
-
-        /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
-        '../templates/**/*.html',
-
-        /*
-         * Main templates directory of the project (BASE_DIR/templates).
-         * Adjust the following line to match your project structure.
-         */
-        '../../templates/**/*.html',
-
-        /*
-         * Templates in other django apps (BASE_DIR/<any_app_name>/templates).
-         * Adjust the following line to match your project structure.
-         */
+        // '../templates/**/*.html',
+        // '../../templates/**/*.html',
         '../../**/templates/**/*.html',
-
-        /**
-         * JS: If you use Tailwind CSS in JavaScript, uncomment the following lines and make sure
-         * patterns match your project structure.
-         */
-        /* JS 1: Ignore any JavaScript in node_modules folder. */
-        // '!../../**/node_modules',
-        /* JS 2: Process all JavaScript files in the project. */
-        // '../../**/*.js',
-
-        /**
-         * Python: If you use Tailwind CSS classes in Python, uncomment the following line
-         * and make sure the pattern below matches your project structure.
-         */
-        // '../../**/*.py'
+        '../../home/index-home.js',
     ],
     theme: {
         extend: {
+            height: theme => ({
+                'screen90': '90vh',
+                'screen75': '75vh',
+                'screen/2': '50vh',
+                'screen/3': 'calc(100vh / 3)',
+                'screen/4': 'calc(100vh / 4)',
+                'screen/5': 'calc(100vh / 5)',
+                'screen400': '400px',
+                'screen600': '600px',
+                'screen800': '800px',
+                'screen1000': '1000px'
+              }),
             colors: {
-                "primary": "#ee7e25",
+                "primary": "#f9cc41",
                 "primary-light": "#ffb057",
                 'secondary-light': '#bac5b9',
                 'secondary': '#032900',
@@ -65,8 +48,8 @@ module.exports = {
                 'black': '0px 0px 6px black',
             },
             fontFamily: {
-                'specialElite': ['Special Elite', 'cursive'],
-                'SecularOne': ['Secular One', 'sans-serif']
+                'nunito': ['"Nunito"','sans-serif'],
+                'noto': ['"Noto Serif"','serif']
               },
             animation: {
                 "fade-in-fwd": "fade-in-fwd 4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",

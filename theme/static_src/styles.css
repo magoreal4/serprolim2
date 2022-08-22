@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Nunito:wght@200;400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,19 +6,19 @@
 
 @layer base {
     h1 {
-        @apply text-5xl font-bold font-SecularOne
+        @apply text-3xl font-medium
     }
     h2 {
-        @apply text-4xl font-SecularOne
-    }
-    h3 {
         @apply text-2xl font-semibold
     }
-    p {
+    h3 {
         @apply text-xl 
     }
+    p {
+        @apply text-lg 
+    }
     html {
-        @apply font-sans
+        @apply font-nunito
     }
 
     form li {
@@ -129,3 +130,17 @@
     @apply dark:bg-gray-800 p-12 lg:px-24 border-2 rounded-lg
 }
 
+@layer utilities {
+    @variants responsive {
+        .masonry-3-col {
+            column-count: 3;
+        }
+        .masonry-2-col {
+            column-count: 2;
+        }
+        .break-inside {
+             break-inside: avoid;
+        }
+    }
+  }
+  

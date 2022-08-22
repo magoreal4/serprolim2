@@ -49,9 +49,13 @@ INSTALLED_APPS = [
     "wagtailcache",
     "wagtailseo",
     "wagtail.contrib.settings",
+    'wagtailsvg',
+    'wagtail.contrib.modeladmin',
+    'generic_chooser',
+    'svg',
 
     "base",
-    "blog"
+    "blog",
 ]
 
 SITE_ID = 1

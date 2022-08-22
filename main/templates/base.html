@@ -1,7 +1,7 @@
 {% load static wagtailcore_tags wagtailuserbar %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="utf-8" />
         <title>
@@ -27,13 +27,15 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        {% block content %}{% endblock %}
+        {% block header %}
+        {% endblock header %}
 
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+        {% block content %}
+        {% endblock %}
 
+        {% include "parts/footer.html"  %}
+        {% comment %} <script type="text/javascript" src="{% static 'js/main.js' %}"></script> {% endcomment %}
         {% block extra_js %}
-        {# Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
 </html>
