@@ -18,6 +18,7 @@ from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from base.blocks import BaseStreamBlock
+from wagtail.blocks import RichTextBlock
 
 
 # class BlogPeopleRelationship(Orderable, models.Model):
@@ -48,6 +49,7 @@ class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogPage', related_name='tagged_items', on_delete=models.CASCADE)
 
 
+
 class BlogPage(Page):
     """
     A Blog Page
@@ -56,7 +58,6 @@ class BlogPage(Page):
     ParentalKey's related_name in BlogPeopleRelationship. More docs:
     https://docs.wagtail.org/en/stable/topics/pages.html#inline-models
     """
-    subtitle = models.CharField(blank=True, max_length=255)
     
     introduction = models.TextField(
         help_text='Text to describe the page',
@@ -75,6 +76,8 @@ class BlogPage(Page):
     body = StreamField(
         BaseStreamBlock(), verbose_name="Page body", blank=True
     )
+
+    # body = StreamField([('html', RichTextBlock(editor='tinymce', )),])
     
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date_published = models.DateField(
@@ -82,7 +85,7 @@ class BlogPage(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle', classname="full"),
+        # FieldPanel('subtitle', classname="full"),
         FieldPanel('introduction', classname="full"),
         ImageChooserPanel('image'),
         StreamFieldPanel('body'),
@@ -134,42 +137,36 @@ class BlogPage(Page):
     # Empty list means that no child content types are allowed.
     subpage_types = []
 
+class BlogPageRelatedLink(Orderable):
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
+    name = models.CharField(max_length=255)
+    url = models.URLField()
 
-class BlogIndexPage(RoutablePageMixin, Page):
-    """
-    Index page for blogs.
-    We need to alter the page model's context to return the child page objects,
-    the BlogPage objects, so that it works as an index page
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('url'),
+    ]
 
-    RoutablePageMixin is used to allow for a custom sub-URL for the tag views
-    defined above.
-    """
-    subtitle = models.CharField(
-        max_length = 50,
-        help_text='Titulo de la pagina',
-        blank=True,
-        null=True
-        )
+class BlogIndexPage(Page):
 
-    introduction = models.TextField(
-        help_text='Text to describe the page',
-        blank=True
-        )
+    # introduction = models.TextField(
+    #     help_text='Text to describe the page',
+    #     blank=True
+    #     )
 
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text='Landscape mode only; horizontal width between 1000px and 3000px.'
-        )
+    # image = models.ForeignKey(
+    #     'wagtailimages.Image',
+    #     null=True,
+    #     blank=True,
+    #     on_delete=models.SET_NULL,
+    #     related_name='+',
+    #     help_text='Landscape mode only; horizontal width between 1000px and 3000px.'
+    #     )
 
-    content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('introduction', classname="full"),
-        ImageChooserPanel('image'),
-        ]
+    # content_panels = Page.content_panels + [
+    #     FieldPanel('introduction', classname="full"),
+    #     ImageChooserPanel('image'),
+    #     ]
 
     # Speficies that only BlogPage objects can live under this index page
     subpage_types = ['BlogPage']
@@ -184,9 +181,10 @@ class BlogIndexPage(RoutablePageMixin, Page):
     # https://docs.wagtail.org/en/stable/getting_started/tutorial.html#overriding-context
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
-        context['posts'] = BlogPage.objects.descendant_of(
-            self).live().order_by(
-            '-date_published')
+        context['posts'] = BlogPage.objects.all
+        # context['posts'] = BlogPage.objects.descendant_of(
+        #     self).live().order_by(
+        #     '-date_published')
         return context
 
     # This defines a Custom view that utilizes Tags. This view will return all
@@ -232,3 +230,5 @@ class BlogIndexPage(RoutablePageMixin, Page):
             tags += post.get_tags
         tags = sorted(set(tags))
         return tags
+
+BlogPage._meta.get_field('title').help_text = 'El título de la página como quieres que sea visto por el público. Dos espacios significa un enter'

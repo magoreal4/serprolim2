@@ -273,7 +273,7 @@ class GeneralSettings(BaseSetting):
                 FieldPanel('tel'),
                 FieldPanel('cel'),
                 FieldPanel('cel2'),
-                FieldPanel('from_email_address'),
+                FieldPanel('email'),
 
             ],
             _('General Data')

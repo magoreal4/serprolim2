@@ -6,3 +6,5 @@ wagtail-cache==2.1.1
 wagtail-seo==2.2.0
 wagtailsvg==0.0.33
 django-inline-svg==0.1.1
+django-social-share==2.3.0
+wagtailtinymce==4.2.1.5

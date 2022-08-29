@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% comment %} {% load wagtailimages_tags wagtailcore_tags wagtailmetadata_tags static svg%} {% endcomment %}
 {% load wagtailimages_tags wagtailcore_tags static %}
 
 {% block meta_tag %}
@@ -21,12 +20,12 @@ xl:container mx-auto bg-gray-900 min-h-full
     <!-- BANNER  -->
     <section>
       {% image self.imageBG format-webp as imgBG %}          
-      <div style="background-image: url('{{ imgBG.url }}')" class="py-10 flex flex-col md:flex-row items-center justify-around bg-center bg-no-repeat bg-cover relative h-screen75 md:h-screen/2 max-h-screen">
-        {% image self.imageMain format-webp class="w-72" %}      
+      <div style="background-image: url('{{ imgBG.url }}')" class="py-10 flex flex-col md:flex-row items-center justify-around bg-center bg-no-repeat bg-cover relative md:h-screen75 max-h-screen">
+        {% image self.imageMain format-webp class="w-72" %}       
           <div class="text-center">
-              <h1 class="w-72 py-4 "> {{ self.subtitle }} </h1>
+              <h1 class="w-72 lg:w-96 py-4 text-gray-200"> {{ self.subtitle }} </h1>
               <hr>
-              <h2 class="w-72 py-4 text-gray-200 font-thin"> {{ self.slogan }} </h2>
+              <h2 class="w-72 lg:w-96 py-4 text-gray-200"> {{ self.slogan }} </h2>
           </div>
       </div>
   </section>
@@ -103,21 +102,21 @@ xl:container mx-auto bg-gray-900 min-h-full
   </section>
 
   <!-- PREGUNTAS FRECUENTES  -->
-  <section id="preguntas" class="bg-gray-800">
+  <section id="preguntas" class="pb-6 bg-gray-800">
     <div class="text-center">
       <h2 class="pt-16 pb-3 md:pt-5 px-1 uppercase text-gray-200">PREGUNTAS FRECUENTES</h2>
     </div>
-      {% for preguntas in self.preguntas_frecuentes.all %}
-      <div class="pb-1">
-          <div class="mx-auto bg-primary sm:w-10/12 lg:w-2/3 xl:w-1/2 border border-gray-200 divide-y divide-gray-900">
-              <details>
-                  <summary class="text-base question py-3 px-4 cursor-pointer select-none w-full">{{ preguntas.pregunta}}</summary>
-                  <p class="text-sm pt-1 pb-3 px-4 bg-gray-50">{{ preguntas.respuesta}}</p>
-              </details>
-          </div>
-      </div>
-      {% endfor %}    
-    </section>
+    {% for preguntas in self.preguntas_frecuentes.all %}
+    <div class="pb-1">
+        <div class="mx-auto bg-primary sm:w-10/12 lg:w-2/3 xl:w-1/2 border border-gray-200 divide-y divide-gray-900">
+            <details>
+                <summary class="text-base question py-3 px-4 cursor-pointer select-none w-full">{{ preguntas.pregunta}}</summary>
+                <p class="text-sm pt-1 pb-3 px-4 bg-gray-50">{{ preguntas.respuesta}}</p>
+            </details>
+        </div>
+    </div>
+    {% endfor %}    
+  </section>
 
 </main>
 
@@ -129,7 +128,7 @@ xl:container mx-auto bg-gray-900 min-h-full
   STATIC_FILES = {
     "COTIZAR": "{% static 'js/cotiza.js' %}",
 };
-  var marker=null;
+  var marker = null;
   var mjeCotiza = "{{ self.mjeCotiza }}";
   var mjeFueraDeRango = "{{ self.mjeFueraDeRango }}";
   var mjeWAContratando = "{{ self.mjeWAContratando }}";
@@ -141,6 +140,7 @@ xl:container mx-auto bg-gray-900 min-h-full
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', () => {
     var mobileMenuButton = document.getElementById("mobileMenuButton");
+    
     mobileMenuButton.onclick = function() {
         document.getElementById("sideMenuHideOnMobile").classList.toggle("-translate-y-full");
         document.getElementById("sideMenuHideOnMobile").classList.toggle("mt-12");

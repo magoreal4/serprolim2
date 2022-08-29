@@ -10,22 +10,11 @@ module.exports = {
         // '../templates/**/*.html',
         // '../../templates/**/*.html',
         '../../**/templates/**/*.html',
+        '../../**/templates/**/**/*.html',
         '../../home/index-home.js',
     ],
     theme: {
         extend: {
-            height: theme => ({
-                'screen90': '90vh',
-                'screen75': '75vh',
-                'screen/2': '50vh',
-                'screen/3': 'calc(100vh / 3)',
-                'screen/4': 'calc(100vh / 4)',
-                'screen/5': 'calc(100vh / 5)',
-                'screen400': '400px',
-                'screen600': '600px',
-                'screen800': '800px',
-                'screen1000': '1000px'
-              }),
             colors: {
                 "primary": "#f9cc41",
                 "primary-light": "#ffb057",
@@ -38,11 +27,21 @@ module.exports = {
                 "warning": "#fdcb10",
                 "error": "#fc483f",
                 'facebook': '#3b5998',
-                'whatsapp': '#25d366'
+                'whatsapp': '#25d366',
+                'twitter': '#1DA1F2',
+                'mail': '#EA4335',
             },
             height: {
+                'screen90': '90vh',
                 'screen75': '75vh',
-                'screen80': '80vh',
+                'screen/2': '50vh',
+                'screen/3': 'calc(100vh / 3)',
+                'screen/4': 'calc(100vh / 4)',
+                'screen/5': 'calc(100vh / 5)',
+                'screen400': '400px',
+                'screen600': '600px',
+                'screen800': '800px',
+                'screen1000': '1000px'
             },
             dropShadow: {
                 'black': '0px 0px 6px black',

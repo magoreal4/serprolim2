@@ -1,21 +1,44 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags static svg%}
+{% load wagtailimages_tags filters_tags wagtailcore_tags static svg%}
 
 {% block body_class %}
-dark:bg-secondary dark:text-gray-200
+xl:container 
 {% endblock body_class %}
 
 {% block header %}
-{% include "parts/header.html" with class="dark:bg-gray-800 sticky top-0" %}
+{% include "parts/header.html" with class="sticky top-0 shadow z-10 bg-primary flex justify-end md:justify-center items-center" %}
 {% endblock header %}
 
 
 {% block content %}
 
-<article class="container px-2 md:px-12 lg:px-36 pb-12 mx-auto space-y-12 dark:text-gray-50">
-	<div class="frameCard">
+<div class="bg-gray-200">
+	<div class="container xl:max-w-5xl bg-white p-5 mx-auto sm:p-10 md:p-16">
+		<article class="font-noto flex flex-col max-w-3xl mx-auto overflow-hidden rounded">
+			{% image self.image height-360 format-webp class="w-full h-60 sm:h-96 rounded-lg" %}
+			{% comment %} <img src="https://source.unsplash.com/random/480x360" alt="" class="w-full h-60 sm:h-96 rounded-lg"> {% endcomment %}
+			<div class="p-6 m-4 mx-auto mb-0 sm:-mt-6 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md bg-gray-100 bg-opacity-90">
+				<div class="space-y-2">
+					<a rel="noopener noreferrer" href="#" class="inline-block text-2xl font-semibold sm:text-3xl">
+						<h1 class="text-center">
+						{{ self.title|titulo }}
+						</h1>
+					</a>
+				</div>
+				{% comment %} <div class="dark:text-gray-100">
+					<h3>{{ self.introduction }}</h3>
+				</div> {% endcomment %}
+			</div>
+		</article>
+		<div class="prose lg:prose-lg mx-auto md:max-w-none lg:px-16 font-noto">
+		{{ self.body }}
+		</div>
+	</div>
+
+
+	{% comment %} <div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
 		<div class="mx-auto mb-4 text-center">
-			<h1 class="font-bold leading-tight">{{self.title|upper}}</h1>
+			<h1 class="font-bold leading-tight">{{self.title|titulo}}</h1>
 			<p class="text-sm dark:text-gray-400">
 				<time datetime="{{self.date_published.isoformat}}">{{self.date_published}}</time>
 			</p>
@@ -51,8 +74,8 @@ dark:bg-secondary dark:text-gray-200
 				</div>
 			</div>
 		
-	</div>	
-</article>
+	</div> {% endcomment %}	
+</div> 
 
 
 {% endblock content %}

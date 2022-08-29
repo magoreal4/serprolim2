@@ -51,8 +51,11 @@ INSTALLED_APPS = [
     "wagtail.contrib.settings",
     'wagtailsvg',
     'wagtail.contrib.modeladmin',
+    "wagtail.contrib.table_block",
     'generic_chooser',
     'svg',
+    'django_social_share',
+    # 'wagtailtinymce',
 
     "base",
     "blog",
@@ -63,6 +66,15 @@ SITE_ID = 1
 SVG_DIRS=[
     os.path.join(BASE_DIR, './media/svg')
 ]
+
+# WAGTAILADMIN_RICH_TEXT_EDITORS = {
+#     'default': {
+#         'WIDGET': 'wagtail.wagtailadmin.rich_text.HalloRichTextArea'
+#     },
+#     'tinymce': {
+#         'WIDGET': 'wagtailtinymce.rich_text.TinyMCERichTextArea'
+#     },
+# }
 
 WAGTAILSVG_UPLOAD_FOLDER = 'svg'
 
@@ -125,7 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = "es-bo"
+LANGUAGE_CODE = "en-bo"
 
 TIME_ZONE = "America/La_Paz"
 

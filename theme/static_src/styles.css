@@ -5,17 +5,19 @@
 
 
 @layer base {
+
+
     h1 {
-        @apply text-3xl font-medium
+        @apply text-2xl sm:text-4xl font-semibold 
     }
     h2 {
-        @apply text-2xl font-semibold
+        @apply text-xl sm:text-2xl font-semibold
     }
     h3 {
-        @apply text-xl 
+        @apply text-lg sm:text-xl font-medium
     }
     p {
-        @apply text-lg 
+        @apply text-base sm:text-lg 
     }
     html {
         @apply font-nunito
@@ -48,7 +50,29 @@
         /* -webkit-perspective: 2500px;
         perspective: 2500px; */
     }
+    table {
+        @apply bg-white max-w-xl mx-auto;
+        table-layout: fixed; 
+        width: 100%;
+    }
+
+
 }
+
+.htCenter {
+    @apply text-center
+}
+
+.htRight {
+    @apply text-right pr-8
+}
+
+.htLeft {
+    @apply text-left pl-8
+}
+
+
+
 
 .perspective {
     -webkit-perspective: 2500px;
@@ -127,11 +151,11 @@
 }
 
 .frameCard {
-    @apply dark:bg-gray-800 p-12 lg:px-24 border-2 rounded-lg
+    @apply  max-w-sm mx-auto bg-white rounded-lg shadow-lg
 }
 
 @layer utilities {
-    @variants responsive {
+    
         .masonry-3-col {
             column-count: 3;
         }
@@ -141,6 +165,9 @@
         .break-inside {
              break-inside: avoid;
         }
-    }
+    
   }
-  
+
+.full-width {
+    @apply mx-auto
+}

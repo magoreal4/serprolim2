@@ -3,7 +3,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.blocks import (
     CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,
 )
-
+from wagtail.contrib.table_block.blocks import TableBlock
 
 class ImageBlock(StructBlock):
     """
@@ -49,6 +49,28 @@ class BlockQuote(StructBlock):
         template = "blocks/blockquote.html"
 
 
+new_table_options = {
+    'contextMenu': [
+        'row_above',
+        'row_below',
+        '---------',
+        'col_left',
+        'col_right',
+        '---------',
+        'remove_row',
+        'remove_col',
+        '---------',
+        'undo',
+        'redo',
+        '---------',
+        'copy',
+        'cut'
+        '---------',
+        'alignment',
+    ],
+}
+
+
 # StreamBlocks
 class BaseStreamBlock(StreamBlock):
     """
@@ -57,7 +79,11 @@ class BaseStreamBlock(StreamBlock):
     heading_block = HeadingBlock()
     paragraph_block = RichTextBlock(
         icon="fa-paragraph",
-        template="blocks/paragraph_block.html"
+        template="blocks/paragraph_block.html",
+        # features=['bold', 'italic', 'h2', 'h3', 'h4', 'ol', 'ul', 'hr', 'link-page', 'document-link', 'image', 'embed', 'code', 'superscript', 'subscript', 'strikethrough', 'blockquote']
+    )
+    table_block = TableBlock(
+        table_options=new_table_options
     )
     image_block = ImageBlock()
     block_quote = BlockQuote()

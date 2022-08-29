@@ -17,6 +17,10 @@ from wagtail.admin.edit_handlers import (
 from base.fields import MonospaceField
 
 class HomePage(Page):
+    subpage_types = [
+        'blog.BlogIndexPage',
+        'base.StandardPage'
+    ]
 # BANNER
     subtitle = models.CharField(
         "Sub Titulo",
@@ -186,90 +190,3 @@ class preguntasFrecuentes(Orderable):
         FieldPanel('respuesta'),
         FieldPanel('display'),
     ]
-    # effects_image = models.BooleanField(
-    #     "Efectos Imagenes", 
-    #     default=True, 
-    #     help_text="Efecto imagen Aro"
-    #     )
-    # repeat = models.BooleanField(
-    #     "Repetición", 
-    #     default=False, 
-    #     help_text="Repite indefinidamente"
-    #     )
-    # effects_text = models.BooleanField(
-    #     "Efectos Texto", 
-    #     default=True, 
-    #     help_text="Efectos de texto"
-    #     )
-    # # PROMOCION
-    # title_promo = models.CharField(
-    #     "Titulo",
-    #     max_length=20,
-    #     default="Ahora",
-    #     blank=True,
-    #     null=True,
-    #     help_text="Titulo Promocion, si queda vacio no se mostrará la Promoción"
-    # )
-    # precio_promo = models.IntegerField(
-    #     "Precio",
-    #     default="30",
-    #     blank=True,
-    #     null=True,
-    #     help_text="Precio"
-    # )
-
-    # unidad_promo = models.CharField(
-    #     "Unidad",
-    #     max_length=10,
-    #     default="persona",
-    #     blank=True,
-    #     null=True,
-    #     help_text="Unidad (persona/grupo/equipo"
-    # )
-    # descripcion_promo = models.TextField(
-    #     "Descripción",
-    #     max_length=50,
-    #     default="",
-    #     blank=True,
-    #     null=True,
-    #     help_text="Descripcion Corta"
-    # )
-     
-    # def get_context(self, request, *args, **kwargs):
-    #     context = super().get_context(request)
-    #     context['servicios'] = ServicesPage.objects.first()
-    #     return context
-
-    # # mixturecards = StreamField(
-    # #     [
-    # #         ("mixturecards", ImageCaptionBlock()),
-    # #     ],
-    # #     null=True,
-    # #     blank=True
-    # # )
-        
-    # content_panels = Page.content_panels + [
-    #     FieldPanel("subtitle"),
-    #     FieldPanel('description'),
-
-    #     MultiFieldPanel([
-    #         FieldPanel("title_promo"),
-    #         FieldPanel("precio_promo"),
-    #         FieldPanel("unidad_promo"),
-    #         FieldPanel("descripcion_promo"),
-    #         InlinePanel("promo_features", label="Caracteristicas"),
-    #     ], heading="Promoción"),
-
-    #     MultiFieldPanel([
-    #         FieldPanel("slideTime"),
-    #         FieldPanel("effects_image"),
-    #         FieldPanel("effects_text"),
-    #         FieldPanel("repeat"),
-    #         InlinePanel("carousel_images", max_num=5, min_num=1, label="Imagenes Carrosel"),
-    #     ], heading="Imagenes Carrusel"),
-
-        # MultiFieldPanel([
-        #     StreamFieldPanel("mixturecards"),
-        # ], heading="Servicios xxx"),
-    
-    # ]

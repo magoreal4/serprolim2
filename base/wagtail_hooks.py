@@ -6,7 +6,17 @@
 # from django.urls import reverse
 # from django.utils.html import format_html, mark_safe
 # from django.utils.translation import gettext_lazy as _
-from wagtail.core import hooks
+
+# from wagtail.core import hooks
+
+import json
+
+from django.templatetags.static import static
+from django.utils import translation
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from wagtail import hooks
+
 # from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 # from wagtailcache.cache import clear_cache
 
@@ -56,7 +66,17 @@ def register_icons(icons):
 
     return icons
 
-
+# @hooks.register('insert_tinymce_js')
+# def my_plugin_js():
+#     return format_html(
+#         """
+#         <script>
+#             registerMCEPlugin("myplugin", {});
+#         </script>
+#         """,
+#         mark_safe(json.dumps(static('js/my-tinymce-plugin.js'))),
+#         to_js_primitive(translation.to_locale(translation.get_language())),
+#     )
 # def clear_wagtailcache(*args, **kwargs):
 #     clear_cache()
 
