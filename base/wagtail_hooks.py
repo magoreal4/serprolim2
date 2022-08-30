@@ -17,6 +17,19 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from wagtail import hooks
 
+from wagtailcache.cache import clear_cache
+
+# @hooks.register("after_create_page")
+# @hooks.register("after_edit_page")
+# def clear_wagtailcache(request, page):
+#     if page.live:
+#         clear_cache(
+#             [
+#                 page.full_url,  # page
+#                 page.get_parent().full_url,  # category page
+#                 page.get_url_parts()[1],  # root page
+#             ]
+#         )
 # from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 # from wagtailcache.cache import clear_cache
 

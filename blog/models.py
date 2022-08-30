@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.db import models
 from django.shortcuts import redirect, render
+from django.core.cache import cache
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -137,6 +138,11 @@ class BlogPage(Page):
     # Empty list means that no child content types are allowed.
     subpage_types = []
 
+    def save(self, *args, **kwargs):
+        print("Se actualizó los valores home")
+        cache.clear()
+        return super().save(*args, **kwargs)
+
 class BlogPageRelatedLink(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
     name = models.CharField(max_length=255)
@@ -181,11 +187,13 @@ class BlogIndexPage(Page):
     # https://docs.wagtail.org/en/stable/getting_started/tutorial.html#overriding-context
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
-        context['posts'] = BlogPage.objects.all
+        context['posts'] = BlogPage.objects.live().defer_streamfields
         # context['posts'] = BlogPage.objects.descendant_of(
         #     self).live().order_by(
         #     '-date_published')
         return context
+
+# alias_of, alias_of_id, aliases, body, content_type, content_type_id, date_published, depth, draft_title, expire_at, expired, first_published_at, formsubmission, go_live_at, group_permissions, has_unpublished_changes, id, image, image_id, index_entries, introduction, last_published_at, latest_revision_created_at, live, live_revision, live_revision_id, locale, locale_id, locked, locked_at, locked_by, locked_by_id, numchild, owner, owner_id, page_ptr, page_ptr_id, path, redirect, related_links, revisions, search_description, seo_title, show_in_menus, sites_rooted_here, slug, subscribers, tagged_items, tags, title, translation_key, url_path, view_restrictions, wagtail_admin_comments, workflow_states, workflowpage
 
     # This defines a Custom view that utilizes Tags. This view will return all
     # related BlogPages for a given Tag or redirect back to the BlogIndexPage.

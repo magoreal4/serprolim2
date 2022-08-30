@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    "wagtailcache",
     "wagtailseo",
     "wagtail.contrib.settings",
     'wagtailsvg',
@@ -55,7 +54,6 @@ INSTALLED_APPS = [
     'generic_chooser',
     'svg',
     'django_social_share',
-    # 'wagtailtinymce',
 
     "base",
     "blog",
@@ -81,6 +79,8 @@ WAGTAILSVG_UPLOAD_FOLDER = 'svg'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 MIDDLEWARE = [
+    # 'wagtailcache.cache.UpdateCacheMiddleware', #Este siempre primero
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -89,7 +89,18 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    
+    # 'wagtailcache.cache.FetchFromCacheMiddleware', #Este siempre ultimo
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache'),
+        'KEY_PREFIX': 'wagtailcache',
+        # 'TIMEOUT': 604800, # one week (in seconds)
+    }
+}
 
 ROOT_URLCONF = "main.urls"
 

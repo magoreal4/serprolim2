@@ -1,5 +1,7 @@
+
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags static %}
+{% load wagtailimages_tags wagtailcore_tags static cache %}
+
 
 {% block meta_tag %}
   {% comment %} {% meta_tags %} {% endcomment %}
@@ -9,13 +11,10 @@
 xl:container mx-auto bg-gray-900 min-h-full
 {% endblock body_class %}
 
-{% block header %}
-{% include "parts/header.html" with class="sticky top-0 shadow z-10 bg-primary flex justify-end md:justify-center items-center" %}
-{% endblock header %}
-
 {% block content %}
 
 {% comment %} <div id="whatsapp" class="z-10000 fixed bottom-12 left-1 sm:left-3 lg:left-10 xl:left-20 2xl:left-40"></div> {% endcomment %}
+{% cache 604800 home %}
 <main>
     <!-- BANNER  -->
     <section>
@@ -23,9 +22,9 @@ xl:container mx-auto bg-gray-900 min-h-full
       <div style="background-image: url('{{ imgBG.url }}')" class="py-10 flex flex-col md:flex-row items-center justify-around bg-center bg-no-repeat bg-cover relative md:h-screen75 max-h-screen">
         {% image self.imageMain format-webp class="w-72" %}       
           <div class="text-center">
-              <h1 class="w-72 lg:w-96 py-4 text-gray-200"> {{ self.subtitle }} </h1>
+              <h1 class="w-72 lg:w-96 py-4 text-black"> {{ self.subtitle }} </h1>
               <hr>
-              <h2 class="w-72 lg:w-96 py-4 text-gray-200"> {{ self.slogan }} </h2>
+              <h2 class="w-72 lg:w-96 py-4 text-white font-thin"> {{ self.slogan }} </h2>
           </div>
       </div>
   </section>
@@ -117,9 +116,9 @@ xl:container mx-auto bg-gray-900 min-h-full
     </div>
     {% endfor %}    
   </section>
-
+  
 </main>
-
+{% endcache %}  
 {% endblock content %}
 
 
@@ -135,40 +134,6 @@ xl:container mx-auto bg-gray-900 min-h-full
   var mjeWAFueraDeRango = "{{ self.mjeWAFueraDeRango }}";
   var celular = {{ settings.base.GeneralSettings.cel }};
 
-</script>
-
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', () => {
-    var mobileMenuButton = document.getElementById("mobileMenuButton");
-    
-    mobileMenuButton.onclick = function() {
-        document.getElementById("sideMenuHideOnMobile").classList.toggle("-translate-y-full");
-        document.getElementById("sideMenuHideOnMobile").classList.toggle("mt-12");
-        document.getElementById("sideMenuHideOnMobile").classList.toggle("shadow");
-        document.getElementById("mobileMenuButtonClose").classList.toggle("hidden");
-        document.getElementById("mobileMenuButtonOpen").classList.toggle("hidden");
-    }
-      // Hide element when click outside nav
-    var theElementContainer = document.getElementsByTagName("nav")[0];
-    document.addEventListener('click', function(event) {
-        if (!theElementContainer.contains(event.target)) {
-            document.getElementById("sideMenuHideOnMobile").classList.add("-translate-y-full");
-            document.getElementById("sideMenuHideOnMobile").classList.remove("mt-12");
-            document.getElementById("sideMenuHideOnMobile").classList.remove("shadow");
-            document.getElementById("mobileMenuButtonOpen").classList.remove("hidden");
-            document.getElementById("mobileMenuButtonClose").classList.add("hidden");
-        }
-    });
-    var sideMenu = document.getElementById("sideMenuHideOnMobile").childNodes;
-    sideMenu.onclick = function() {    
-      document.getElementById("sideMenuHideOnMobile").classList.add("-translate-y-full");
-      document.getElementById("sideMenuHideOnMobile").classList.remove("mt-12");
-      document.getElementById("sideMenuHideOnMobile").classList.remove("shadow");
-      document.getElementById("mobileMenuButtonOpen").classList.remove("hidden");
-      document.getElementById("mobileMenuButtonClose").classList.add("hidden");
-    };
-  
-  });
 </script>
 
 <script type="text/javascript" src="{% static 'js/home.js' %}"></script>

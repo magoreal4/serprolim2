@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 
 from modelcluster.fields import ParentalKey
 
@@ -131,6 +133,11 @@ class HomePage(Page):
         
         InlinePanel("preguntas_frecuentes", label="Preguntas Frecuentes"),
     ]
+
+    def save(self, *args, **kwargs):
+        print("Se actualizó los valores home")
+        cache.clear()
+        return super().save(*args, **kwargs)
 
 class nuestrosServicios(Orderable):
     page = ParentalKey(

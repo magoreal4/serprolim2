@@ -23,6 +23,10 @@
         @apply font-nunito
     }
 
+    hr {
+        @apply my-4 !bg-black
+    }
+
     form li {
         @apply mb-6 list-none 
     }

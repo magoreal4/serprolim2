@@ -25,11 +25,13 @@ INSTALLED_APPS = INSTALLED_APPS + [
     'tailwind',
     'theme',
     'django_browser_reload',
-    # 'django_extensions',
+    'django_extensions',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = MIDDLEWARE + [
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 TAILWIND_CSS_PATH = './css/main.css'
