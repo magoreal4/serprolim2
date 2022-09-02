@@ -32,7 +32,7 @@ INSTALLED_APPS = INSTALLED_APPS + [
 
 MIDDLEWARE = MIDDLEWARE + [
     'django_browser_reload.middleware.BrowserReloadMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #"debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 TAILWIND_CSS_PATH = './css/main.css'

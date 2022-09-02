@@ -1,0 +1,10 @@
+# /etc/systemd/system/serprolim2.socket
+
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/serprolim2.sock
+
+[Install]
+WantedBy=sockets.targetEOF
