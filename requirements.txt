@@ -6,3 +6,4 @@ wagtailsvg==0.0.33
 django-inline-svg==0.1.1
 django-social-share==2.3.0
 wagtail-metadata==4.0.1
+gunicorn==20.1.0

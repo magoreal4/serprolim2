@@ -6,7 +6,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from wagtail import hooks
 
-from wagtailcache.cache import clear_cache
+# from wagtailcache.cache import clear_cache
 
 @hooks.register("register_icons")
 def register_icons(icons):
