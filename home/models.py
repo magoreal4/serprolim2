@@ -5,20 +5,18 @@ from django.core.cache.utils import make_template_fragment_key
 from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
-from wagtail.images.models import Image
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
-    # FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
-    # PageChooserPanel,
-    # StreamFieldPanel,
 )
 
 from base.fields import MonospaceField
 
-class HomePage(Page):
+from wagtailmetadata.models import MetadataPageMixin
+
+class HomePage(MetadataPageMixin, Page):
     subpage_types = [
         'blog.BlogIndexPage',
         'base.StandardPage'

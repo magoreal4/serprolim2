@@ -1,19 +1,21 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags social_share filters_tags wagtailcore_tags static svg%}
+{% load static wagtailimages_tags social_share filters_tags wagtailcore_tags wagtailmetadata_tags %}
+
+{% block meta_tag %}
+  {% meta_tags %}
+{% endblock %}
 
 {% block body_class %}
 xl:container 
 {% endblock body_class %}
 
 {% block content %}
-
-<div class="bg-gray-200">
-	<div class="container xl:max-w-5xl bg-white p-5 mx-auto sm:p-10 md:p-16">
+<main class="flex flex-col md:flex-row bg-gray-200">	
+	<div class="md:w-4/5 xl:max-w-5xl bg-white p-5 mx-auto sm:p-10 md:p-16">
 		<article class="font-noto flex flex-col max-w-3xl mx-auto overflow-hidden rounded">
 			<div class= "h-96">	
 			{% image self.image height-360 format-webp class="min-w-full min-h-full max-w-none rounded-lg" %}
-		</div>
-			{% comment %} <img src="https://source.unsplash.com/random/480x360" alt="" class="w-full h-60 sm:h-96 rounded-lg"> {% endcomment %}
+			</div>
 			<div class="p-6 m-4 mx-auto mb-0 sm:-mt-6 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md bg-gray-100 bg-opacity-90">
 				<div class="space-y-2">
 					<a rel="noopener noreferrer" href="#" class="inline-block text-2xl font-semibold sm:text-3xl">
@@ -22,15 +24,12 @@ xl:container
 						</h1>
 					</a>
 				</div>
-				{% comment %} <div class="dark:text-gray-100">
-					<h3>{{ self.introduction }}</h3>
-				</div> {% endcomment %}
 			</div>
+			<div class="prose prose-hr:my-8 prose-a:text-blue-600 text-black lg:prose-lg mx-auto md:max-w-none lg:px-16 font-noto">
+			{{ self.body }}
+			</div>
+			<hr>
 		</article>
-		<div class="prose prose-hr:my-8 prose-a:text-blue-600 text-black lg:prose-lg mx-auto md:max-w-none lg:px-16 font-noto">
-		{{ self.body }}
-		</div>
-		<hr>
 		{% comment %} https://pypi.org/project/django-social-share/ {% endcomment %}
 		<div class="flex justify-around max-w-sm mx-auto pt-4 space-x-4 align-center h-12">
 			{% post_to_whatsapp object_or_url "Comparte via WhatsApp" "h-full w-full text-black hover:text-whatsapp" %}
@@ -39,7 +38,28 @@ xl:container
 			{% send_email "{{ self.title }}" "{{self.introduction}}. Continuar leyendo en el siguiente link... {{ self.url }}" object_or_url "Comparte por correo" "h-full w-full text-black hover:text-mail" %}
 		</div>
 	</div>
-</div> 
+
+	<div class="hidden md:block w-1/4">
+		<div class="bg-white h-full py-4">
+		{% for listpost in posts %}
+			{% if listpost.slug == self.slug %}
+			{% else %}
+			<a href="">
+				<div class="bg-primary border-2 m-2 p-2 py-4 rounded-lg shadow-md">
+					<h3 class="text-base">{{ listpost.title }}</h3>
+				</div>
+			</a>
+			{% endif %}    
+		{% endfor %}
+		{% comment %} {% for anuncio in anuncio_list %}
+			<div class="text-black border-2 m-2 p-2 py-4 rounded-lg shadow-md">
+				<img class="object-contain w-full" src="{{ anuncio.img.url }}" alt="{{ anuncio.name }}">
+			</div>
+		{% endfor %} {% endcomment %}
+		</div>
+	</div>
+</main>
+
 
 
 {% endblock content %}

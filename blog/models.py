@@ -10,18 +10,17 @@ from modelcluster.fields import ParentalKey
 
 from taggit.models import Tag, TaggedItemBase
 
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.contrib.routable_page.models import route
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page, Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from base.blocks import BaseStreamBlock
-from wagtail.blocks import RichTextBlock
 
-
+from wagtailmetadata.models import MetadataPageMixin
+# from wagtailorderable.models import Orderable
 # class BlogPeopleRelationship(Orderable, models.Model):
 #     """
 #     This defines the relationship between the `People` within the `base`
@@ -51,7 +50,7 @@ class BlogPageTag(TaggedItemBase):
 
 
 
-class BlogPage(Page):
+class BlogPage(MetadataPageMixin, Page):
     """
     A Blog Page
 
@@ -78,9 +77,15 @@ class BlogPage(Page):
         BaseStreamBlock(), verbose_name="Page body", blank=True
     )
 
+    order = models.IntegerField(
+        help_text="Orden para desplegar los posts",
+        default=0
+    )
+
     # body = StreamField([('html', RichTextBlock(editor='tinymce', )),])
     
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
     date_published = models.DateField(
         "Date article published", blank=True, null=True
     )
@@ -89,6 +94,7 @@ class BlogPage(Page):
         # FieldPanel('subtitle', classname="full"),
         FieldPanel('introduction', classname="full"),
         ImageChooserPanel('image'),
+        FieldPanel('order'),
         StreamFieldPanel('body'),
         FieldPanel('date_published'),
         # InlinePanel(
@@ -131,11 +137,8 @@ class BlogPage(Page):
             ])
         return tags
 
-    # Specifies parent to BlogPage as being BlogIndexPages
     parent_page_types = ['BlogIndexPage']
 
-    # Specifies what content types can exist as children of BlogPage.
-    # Empty list means that no child content types are allowed.
     subpage_types = []
 
     def save(self, *args, **kwargs):
@@ -185,13 +188,13 @@ class BlogIndexPage(Page):
     # Overrides the context to list all child items, that are live, by the
     # date that they were published
     # https://docs.wagtail.org/en/stable/getting_started/tutorial.html#overriding-context
-    def get_context(self, request):
-        context = super(BlogIndexPage, self).get_context(request)
-        context['posts'] = BlogPage.objects.live().defer_streamfields
-        # context['posts'] = BlogPage.objects.descendant_of(
-        #     self).live().order_by(
-        #     '-date_published')
-        return context
+    # def get_context(self, request):
+    #     context = super(BlogIndexPage, self).get_context(request)
+    #     context['posts'] = BlogPage.objects.live()
+    #     # context['posts'] = BlogPage.objects.descendant_of(
+    #     #     self).live().order_by(
+    #     #     '-date_published')
+    #     return context
 
 # alias_of, alias_of_id, aliases, body, content_type, content_type_id, date_published, depth, draft_title, expire_at, expired, first_published_at, formsubmission, go_live_at, group_permissions, has_unpublished_changes, id, image, image_id, index_entries, introduction, last_published_at, latest_revision_created_at, live, live_revision, live_revision_id, locale, locale_id, locked, locked_at, locked_by, locked_by_id, numchild, owner, owner_id, page_ptr, page_ptr_id, path, redirect, related_links, revisions, search_description, seo_title, show_in_menus, sites_rooted_here, slug, subscribers, tagged_items, tags, title, translation_key, url_path, view_restrictions, wagtail_admin_comments, workflow_states, workflowpage
 
@@ -240,3 +243,11 @@ class BlogIndexPage(Page):
         return tags
 
 BlogPage._meta.get_field('title').help_text = 'El título de la página como quieres que sea visto por el público. Dos espacios significa un enter'
+
+from wagtail.contrib.modeladmin.options import ModelAdmin
+
+from .models import BlogPage
+
+class BlogPageAdmin(ModelAdmin):
+    model = BlogPage
+    list_display = ('introduction', 'image')

@@ -20,7 +20,8 @@
         @apply text-base sm:text-lg 
     }
     html {
-        @apply font-nunito
+        @apply font-nunito;
+        scroll-behavior: smooth;
     }
 
     hr {

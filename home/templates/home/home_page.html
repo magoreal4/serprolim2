@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags static cache %}
+{% load wagtailimages_tags wagtailcore_tags filters_tags static cache %}
 
 
 {% block meta_tag %}
@@ -14,8 +14,10 @@ xl:container mx-auto bg-gray-900 min-h-full
 {% block content %}
 
 {% comment %} <div id="whatsapp" class="z-10000 fixed bottom-12 left-1 sm:left-3 lg:left-10 xl:left-20 2xl:left-40"></div> {% endcomment %}
+
 {% cache 604800 home %}
-<main>
+<main class="divide-y divide-gray-400">
+
     <!-- BANNER  -->
     <section>
       {% image self.imageBG format-webp as imgBG %}          
@@ -27,6 +29,15 @@ xl:container mx-auto bg-gray-900 min-h-full
               <h2 class="w-72 lg:w-96 py-4 text-white font-thin"> {{ self.slogan }} </h2>
           </div>
       </div>
+  </section>
+
+  <!-- POSTS  -->
+  <section class="py-6 px-3 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-gray-200">
+    {% for post in 3posts %}
+    <a rel="{{ post.slug }}" href="{{ post.url }}" class="w-full frameCard !bg-primary group p-5">
+        <h3 class="text-center min-h-full w-full flex items-center justify-center group-hover:underline">{{ post.title|titulo }}</h3>
+    </a>
+		{% endfor %}
   </section>
 
   <!-- COTIZA  -->
@@ -118,9 +129,10 @@ xl:container mx-auto bg-gray-900 min-h-full
   </section>
   
 </main>
-{% endcache %}  
-{% endblock content %}
 
+{% endcache %}
+
+{% endblock content %}
 
 {% block extra_js %}
 <script type="text/javascript">

@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
 
-    "wagtailseo",
     "wagtail.contrib.settings",
     'wagtailsvg',
     'wagtail.contrib.modeladmin',
@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'generic_chooser',
     'svg',
     'django_social_share',
+    'wagtailmetadata',
+    # 'wagtailorderable',
 
     "base",
     "blog",
@@ -119,6 +121,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
 
                 'wagtail.contrib.settings.context_processors.settings',
+                'blog.context_processors.blog_page',
             ],
         },
     },
@@ -185,7 +188,7 @@ MEDIA_URL = "/media/"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "XXX"
+WAGTAIL_SITE_NAME = "SERPROLIM"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
