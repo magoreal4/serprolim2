@@ -26,13 +26,13 @@ INSTALLED_APPS = INSTALLED_APPS + [
     'theme',
     'django_browser_reload',
     'django_extensions',
-    "debug_toolbar",
+    #"debug_toolbar",
     'wagtail.contrib.styleguide',
 ]
 
 MIDDLEWARE = MIDDLEWARE + [
     'django_browser_reload.middleware.BrowserReloadMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #"debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 TAILWIND_CSS_PATH = './css/main.css'
