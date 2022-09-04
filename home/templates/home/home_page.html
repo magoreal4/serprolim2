@@ -15,7 +15,7 @@ xl:container mx-auto bg-gray-900 min-h-full
 
 {% comment %} <div id="whatsapp" class="z-10000 fixed bottom-12 left-1 sm:left-3 lg:left-10 xl:left-20 2xl:left-40"></div> {% endcomment %}
 
-{% comment %} {% cache 604800 home %} {% endcomment %}
+{% cache 604800 home %}
 <main class="divide-y divide-gray-400">
 
     <!-- BANNER  -->
@@ -130,7 +130,7 @@ xl:container mx-auto bg-gray-900 min-h-full
   
 </main>
 
-{% comment %} {% endcache %} {% endcomment %}
+{% endcache %}
 
 {% endblock content %}
 
