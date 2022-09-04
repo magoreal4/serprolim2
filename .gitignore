@@ -317,3 +317,7 @@ env/
 !base/
 
 /**/node_modules/
+
+cache/
+staticfiles/
+.vscode
