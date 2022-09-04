@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
@@ -19,7 +19,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Collection, Page
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
@@ -141,7 +141,7 @@ from .utils import get_image_model_string
 
 
 @register_setting(icon='dribbble')
-class Logo(BaseSetting):
+class Logo(BaseGenericSetting):
     
     logo = models.ForeignKey(
         Svg,
@@ -181,7 +181,7 @@ class Logo(BaseSetting):
     ]
 
 @register_setting(icon='facebook')
-class Social(BaseSetting):
+class Social(BaseGenericSetting):
 
     facebook = models.URLField(
         blank=True, null=True, help_text="facebook page")
@@ -199,7 +199,7 @@ class Social(BaseSetting):
     ]
 
 @register_setting(icon='cog')
-class GeneralSettings(BaseSetting):
+class GeneralSettings(BaseGenericSetting):
 
     address = models.TextField(
         blank=True,
@@ -291,7 +291,7 @@ class GeneralSettings(BaseSetting):
         verbose_name = _('General')
 
 @register_setting(icon='cr-google')
-class AnalyticsSettings(BaseSetting):
+class AnalyticsSettings(BaseGenericSetting):
     """
     Tracking and Google Analytics.
     """

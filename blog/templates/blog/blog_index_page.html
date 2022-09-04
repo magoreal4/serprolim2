@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% comment %} {% load wagtailimages_tags wagtailcore_tags wagtailmetadata_tags static svg%} {% endcomment %}
-{% load wagtailimages_tags filters_tags wagtailcore_tags cache static %}
+
+{% load wagtailimages_tags filters_tags wagtailcore_tags wagtailmetadata_tags cache static %}
 
 {% block meta_tag %}
-  {% comment %} {% meta_tags %} {% endcomment %}
+  {{ block.super }}
 {% endblock %}
 
 {% block body_class %}

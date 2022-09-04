@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags social_share filters_tags wagtailcore_tags wagtailmetadata_tags %}
+{% load wagtailimages_tags social_share filters_tags wagtailcore_tags wagtailmetadata_tags static %}
 
 {% block meta_tag %}
-  {% meta_tags %}
+	{{ block.super }}
+  	{% meta_tags %}
 {% endblock %}
 
 {% block body_class %}
@@ -11,10 +12,10 @@ xl:container
 
 {% block content %}
 <main class="flex flex-col md:flex-row bg-gray-200">	
-	<div class="md:w-4/5 xl:max-w-5xl bg-white p-5 mx-auto sm:p-10 md:p-16">
+	<div class="md:w-4/5 xl:max-w-5xl bg-white p-3 mx-auto sm:p-10 md:p-16">
 		<article class="font-noto flex flex-col max-w-3xl mx-auto overflow-hidden rounded">
 			<div class= "h-96">	
-			{% image self.image height-360 format-webp class="min-w-full min-h-full max-w-none rounded-lg" %}
+			{% image self.image height-360 format-webp class="min-w-full min-h-full rounded-lg" %}
 			</div>
 			<div class="p-6 m-4 mx-auto mb-0 sm:-mt-6 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md bg-gray-100 bg-opacity-90">
 				<div class="space-y-2">

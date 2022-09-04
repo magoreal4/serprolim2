@@ -6,7 +6,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
@@ -136,6 +136,8 @@ class HomePage(MetadataPageMixin, Page):
         print("Se actualizó los valores home")
         cache.clear()
         return super().save(*args, **kwargs)
+
+# HomePage._meta.get_field("seo_title").default = "zzzzzzzzz"
 
 class nuestrosServicios(Orderable):
     page = ParentalKey(
