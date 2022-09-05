@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailimages_tags filters_tags wagtailcore_tags wagtailmetadata_tags cache static %}
+{% load wagtailimages_tags filters_tags wagtailcore_tags static %}
 
 {% block meta_tag %}
   {{ block.super }}
@@ -11,7 +11,7 @@ xl:container mx-auto bg-gray-900 min-h-full
 {% endblock body_class %}
 
 {% block content %}
-{% comment %} {% cache 604800 blog %} {% endcomment %}
+
 <section class="bg-gray-200">
 	<div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
 		{% for post in posts %}
@@ -46,7 +46,7 @@ xl:container mx-auto bg-gray-900 min-h-full
 		</div>
 	</div>
 </section>
-{% comment %} {% endcache %}   {% endcomment %}
+
 {% endblock content %}
 
 
@@ -85,8 +85,6 @@ xl:container mx-auto bg-gray-900 min-h-full
   
   });
 </script>
-
-{% comment %} <script type="text/javascript" src="{% static 'js/home.js' %}"></script> {% endcomment %}
 
 
 {% endblock extra_js %}    

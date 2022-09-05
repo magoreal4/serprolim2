@@ -140,53 +140,62 @@ from .utils import get_image_model_string
 #         abstract = True
 
 
-@register_setting(icon='dribbble')
-class Logo(BaseGenericSetting):
+# @register_setting(icon='dribbble')
+# class Logo(BaseGenericSetting):
     
-    logo = models.ForeignKey(
-        Svg,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('Logo SVG'),
-        help_text=_("Archivo SVG -- Ejemplo.... <svg class='w-8 h-8' xmlns='http://www.w3.org/2000/svg'    version='1.1' viewBox='0 0 350 350'>   <g transform='translate(-258.272 -38.53)'>  <path fill='currentColor' d='m342.425 ...' />    </g> </svg>")
-    )
+#     logo = models.ForeignKey(
+#         Svg,
+#         null=True,
+#         blank=True,
+#         on_delete=models.SET_NULL,
+#         related_name='+',
+#         verbose_name=_('Logo SVG'),
+#         help_text=_("Archivo SVG -- Ejemplo.... <svg class='w-8 h-8' xmlns='http://www.w3.org/2000/svg'    version='1.1' viewBox='0 0 350 350'>   <g transform='translate(-258.272 -38.53)'>  <path fill='currentColor' d='m342.425 ...' />    </g> </svg>")
+#     )
 
-    favicon = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='favicon',
-        verbose_name=_('Favicon'),
-        help_text=_("Archivo recomendado 180x180")
-    )
+#     favicon = models.ForeignKey(
+#         'wagtailimages.Image',
+#         null=True,
+#         blank=True,
+#         on_delete=models.SET_NULL,
+#         related_name='favicon',
+#         verbose_name=_('Favicon'),
+#         help_text=_("Archivo recomendado 180x180")
+#     )
 
-    stamp_logo = models.ForeignKey(
-        Svg,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('logo stamp SVG'),
-    )
+#     stamp_logo = models.ForeignKey(
+#         Svg,
+#         null=True,
+#         blank=True,
+#         on_delete=models.SET_NULL,
+#         related_name='+',
+#         verbose_name=_('logo stamp SVG'),
+#     )
 
-    panels = [
-        MultiFieldPanel([
-            SvgChooserPanel('logo'),
-            ImageChooserPanel('favicon'),
-            SvgChooserPanel('stamp_logo'),
-        ], heading="Logos"),
-    ]
+#     panels = [
+#         MultiFieldPanel([
+#             SvgChooserPanel('logo'),
+#             ImageChooserPanel('favicon'),
+#             SvgChooserPanel('stamp_logo'),
+#         ], heading="Logos"),
+#     ]
 
 @register_setting(icon='facebook')
 class Social(BaseGenericSetting):
 
     facebook = models.URLField(
-        blank=True, null=True, help_text="facebook page")
-    instagram = models.URLField(blank=True, null=True, help_text="instagram")
-    tiktok = models.URLField(blank=True, null=True, help_text="tiktok")
+        blank=True, 
+        null=True, 
+        help_text="facebook page")
+    
+    instagram = models.URLField(
+        blank=True, 
+        null=True, 
+        help_text="instagram")
+    tiktok = models.URLField(
+        blank=True, 
+        null=True, 
+        help_text="tiktok")
     youtube = models.URLField(blank=True, null=True,
                               help_text="youtube channel")
     panels = [
@@ -235,15 +244,23 @@ class GeneralSettings(BaseGenericSetting):
         blank=True,
         null=True,
         max_length=12,
-        verbose_name=_('cellular phone 1 '),
+        verbose_name=_('celular phone 1 '),
         help_text=_('+591 XXXXXXXX Whatsapp'),
+    )
+
+    mjeGlobo = models.CharField(
+        blank=True,
+        null=True,
+        max_length=128,
+        verbose_name=_('Mensaje Globo whatsapp'),
+        help_text=_('En caso dejar en blanco, no se mostrara el globo'),
     )
 
     cel2 = models.CharField(
         blank=True,
         null=True,
         max_length=12,
-        verbose_name=_('cellular phone 2'),
+        verbose_name=_('celular phone 2'),
         help_text=_('+591 XXXXXXXX'),
     )
 
@@ -269,9 +286,15 @@ class GeneralSettings(BaseGenericSetting):
     panels = [
         MultiFieldPanel(
             [
+                FieldPanel('cel'),
+                FieldPanel('mjeGlobo'),
+            ],
+            _('Whatsapp')
+        ),
+        MultiFieldPanel(
+            [
                 FieldPanel('address'),
                 FieldPanel('tel'),
-                FieldPanel('cel'),
                 FieldPanel('cel2'),
                 FieldPanel('email'),
 
@@ -285,6 +308,7 @@ class GeneralSettings(BaseGenericSetting):
             ],
             _('Coordinates GPS')
         ),
+
     ]
 
     class Meta:
@@ -298,29 +322,37 @@ class AnalyticsSettings(BaseGenericSetting):
     class Meta:
         verbose_name = _('Tracking')
 
-    ga_tracking_id = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_('UA Tracking ID'),
-        help_text=_('Your Google "Universal Analytics" tracking ID (begins with "UA-")'),
-    )
+    # ga_tracking_id = models.CharField(
+    #     blank=True,
+    #     max_length=255,
+    #     verbose_name=_('UA Tracking ID'),
+    #     help_text=_('Your Google "Universal Analytics" tracking ID (begins with "UA-")'),
+    # )
     ga_g_tracking_id = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_('G Tracking ID'),
         help_text=_('Your Google Analytics 4 tracking ID (begins with "G-")'),
     )
-    ga_track_button_clicks = models.BooleanField(
-        default=False,
-        verbose_name=_('Track button clicks'),
-        help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
-    )
+    # ga_track_button_clicks = models.BooleanField(
+    #     default=False,
+    #     verbose_name=_('Track button clicks'),
+    #     help_text=_('Track all button clicks using Google Analytics event tracking. Event tracking details can be specified in each button’s advanced settings options.'),  # noqa
+    # )
     gtm_id = models.CharField(
         blank=True,
         max_length=255,
         verbose_name=_('Google Tag Manager ID'),
         help_text=_('Begins with "GTM-"'),
     )
+
+    gads_id = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_('Google Ads ID'),
+        help_text=_('Begins with "AW-"'),
+    )
+
     head_scripts = MonospaceField(
         blank=True,
         null=True,
@@ -347,18 +379,18 @@ class AnalyticsSettings(BaseGenericSetting):
         ),
         MultiFieldPanel(
             [
-                FieldPanel('ga_tracking_id'),
                 FieldPanel('ga_g_tracking_id'),
-                FieldPanel('ga_track_button_clicks'),
-            ],
-            heading=_('Google Analytics'),
-        ),
-        MultiFieldPanel(
-            [
                 FieldPanel('gtm_id'),
+                FieldPanel('gads_id'),
             ],
-            heading=_('Google Tag Manager'),
+            heading=_('Google'),
         ),
+        # MultiFieldPanel(
+        #     [
+        #         FieldPanel('gtm_id'),
+        #     ],
+        #     heading=_('Google Tag Manager'),
+        # ),
         MultiFieldPanel(
             [
                 FieldPanel('head_scripts'),

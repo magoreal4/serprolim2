@@ -6,6 +6,10 @@
   	{% meta_tags %}
 {% endblock %}
 
+{% block css %}
+  {{ block.super }}
+{% endblock %}
+
 {% block body_class %}
 xl:container 
 {% endblock body_class %}
@@ -60,14 +64,12 @@ xl:container
 		</div>
 	</div>
 </main>
-
-
-
 {% endblock content %}
 
 
-{% block extra_js %}
-{% endblock extra_js %}    
+{% block js %}
+	{{ block.super }}
+{% endblock js %}    
 
 
 

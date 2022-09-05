@@ -6,6 +6,10 @@
   {{ block.super }}
   {% meta_tags %}
 {% endblock %} 
+  
+{% block css %}
+  {{ block.super }}
+{% endblock %}
 
 {% block body_class %}
 xl:container mx-auto bg-gray-900 min-h-full
@@ -13,9 +17,7 @@ xl:container mx-auto bg-gray-900 min-h-full
 
 {% block content %}
 
-{% comment %} <div id="whatsapp" class="z-10000 fixed bottom-12 left-1 sm:left-3 lg:left-10 xl:left-20 2xl:left-40"></div> {% endcomment %}
-
-{% cache 604800 home %}
+{% comment %} {% cache 604800 home %} {% endcomment %}
 <main class="divide-y divide-gray-400">
 
     <!-- BANNER  -->
@@ -130,11 +132,13 @@ xl:container mx-auto bg-gray-900 min-h-full
   
 </main>
 
-{% endcache %}
+{% comment %} {% endcache %} {% endcomment %}
 
 {% endblock content %}
 
-{% block extra_js %}
+{% block js %}
+  {{ block.super }}
+
 <script type="text/javascript">
   STATIC_FILES = {
     "COTIZAR": "{% static 'js/cotiza.js' %}",
@@ -148,10 +152,9 @@ xl:container mx-auto bg-gray-900 min-h-full
 
 </script>
 
-<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+<script defer type="text/javascript" src="{% static 'js/home.js' %}"></script>
 
-
-{% endblock extra_js %}    
+{% endblock js %}    
 
 
 

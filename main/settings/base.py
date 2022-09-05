@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'svg',
     'django_social_share',
     'wagtailmetadata',
-    # 'wagtailorderable',
+    'favicon',
+    # 'wagtail_favicon',
 
     "base",
     "blog",

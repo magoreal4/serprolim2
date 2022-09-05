@@ -1,5 +1,5 @@
 import "leaflet/dist/leaflet.css"
-import $ from "jquery";
+// import $ from "jquery";
 import "leaflet";
 import "leaflet-control-custom";
 import "./src/Leaflet.AccuratePosition";

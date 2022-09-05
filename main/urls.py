@@ -6,8 +6,9 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
-
 from search import views as search_views
+# from favicon import urls as favicon_urls
+from favicon.views import browser_config, icon_manifest
 
 import main.views
 
@@ -18,6 +19,8 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     path('sitemap.xml', sitemap),
     path('robots.txt', main.views.RobotsView.as_view()),
+    path('browser-config.xml', browser_config),
+    path('manifest.json', icon_manifest),
 ]
 
 
@@ -36,6 +39,7 @@ urlpatterns = urlpatterns + [
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     path("", include(wagtail_urls)),
+    # path("", include(favicon_urls)),
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),
