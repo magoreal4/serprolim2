@@ -17,7 +17,7 @@ xl:container mx-auto bg-gray-900 min-h-full
 
 {% block content %}
 
-{% comment %} {% cache 604800 home %} {% endcomment %}
+{% cache 604800 home %}
 <main class="divide-y divide-gray-400">
 
     <!-- BANNER  -->
@@ -132,7 +132,7 @@ xl:container mx-auto bg-gray-900 min-h-full
   
 </main>
 
-{% comment %} {% endcache %} {% endcomment %}
+{% endcache %}
 
 {% endblock content %}
 
